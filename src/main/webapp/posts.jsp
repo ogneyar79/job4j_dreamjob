@@ -32,7 +32,8 @@
 </head>
 <body>
 <div class="container pt-3">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Работа мечты</title>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -46,9 +47,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Post post : Store.instOf().findAll()) { %>
+                    <% for (Post post : Store.instOf().findAllPosts()) { %>
                     <tr>
-                        <td><%= post.getName() %>
+                        <td>
+                            <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
+                                <i class="fa fa-edit mr-3"></i>
+                            </a>
+                            <%= post.getName() %>
                         </td>
                     </tr>
                     <% } %>

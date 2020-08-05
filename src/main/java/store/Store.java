@@ -41,8 +41,8 @@ public class Store {
     }
 
     public void save(Candidate candidate) {
-        candidate.setId(CANDIDATE_ID.incrementAndGet());
-        candidates.put(candidate.getId(), candidate);
+        Candidate model = new Candidate(CANDIDATE_ID.incrementAndGet(), candidate.getName());
+        candidates.put(model.getId(), model);
     }
 
     public Collection<Post> findAll() {

@@ -29,7 +29,9 @@ public class Store {
 
     public void save(Post post) {
         if (post.getId() == 0) {
-            post.setId(POST_ID.incrementAndGet());
+            Post post1 = new Post(POST_ID.incrementAndGet(), post.getName());
+            posts.put(post1.getId(), post1);
+            return;
         }
         posts.put(post.getId(), post);
     }

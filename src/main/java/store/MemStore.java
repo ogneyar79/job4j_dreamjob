@@ -8,9 +8,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Store {
+public class MemStore {
 
-    private static final Store INST = new Store();
+    private static final MemStore INST = new MemStore();
     private static AtomicInteger POST_ID = new AtomicInteger(4);
     private static AtomicInteger CANDIDATE_ID = new AtomicInteger(3);
 
@@ -18,7 +18,7 @@ public class Store {
     private Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
 
-    private Store() {
+    private MemStore() {
         posts.put(1, new Post(1, "Junior Java Job"));
         posts.put(2, new Post(2, "Middle Java Job"));
         posts.put(3, new Post(3, "Senior Java Job"));
@@ -49,7 +49,7 @@ public class Store {
         return posts.values();
     }
 
-    public static Store instOf() {
+    public static MemStore instOf() {
         return INST;
     }
 

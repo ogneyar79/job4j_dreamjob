@@ -97,7 +97,7 @@ public class PsqlStore implements IStore {
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
-                    post.setId(id.getInt(1));
+                    post = new Post(id.getInt(1), post.getName());
                 }
             }
         } catch (Exception e) {

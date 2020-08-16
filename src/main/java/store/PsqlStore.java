@@ -89,6 +89,32 @@ public class PsqlStore implements IStore {
         }
     }
 
+    @Override
+    public void save(Candidate candidate) {
+        if (candidate.getId() == 0) {
+            create(candidate);
+        } else {
+            update(candidate);
+        }
+    }
+
+    private Candidate create(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, candidate.getName());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    candidate = new Candidate(id.getInt(1), candidate.getName());
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return candidate;
+    }
+
     private Post create(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO post(name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
@@ -104,6 +130,18 @@ public class PsqlStore implements IStore {
             e.printStackTrace();
         }
         return post;
+    }
+
+    private void update(Candidate candidate) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(" UPDATE candidate set name = ? where id = ? ")
+        ) {
+            ps.setString(1, candidate.getName());
+            ps.setString(2, String.valueOf(candidate.getId()));
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private void update(Post post) {

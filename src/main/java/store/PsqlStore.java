@@ -50,7 +50,6 @@ public class PsqlStore implements IStore {
         return Lazy.INST;
     }
 
-
     @Override
     public Collection<Post> findAllPosts() {
         List<Post> posts = new ArrayList<>();
@@ -158,13 +157,15 @@ public class PsqlStore implements IStore {
 
     @Override
     public Post findById(int id) {
-        Post post = new Post(0, "");
+        Post post = new Post(0, "NO");
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT from post where id = ?")
+             PreparedStatement ps = cn.prepareStatement("SELECT * from post where id = ?")
         ) {
             ps.setInt(1, id);
             try (ResultSet resultSet = ps.executeQuery()) {
                 if (resultSet.next()) {
+                    int columns = resultSet.getMetaData().getColumnCount();
+                    System.out.println(columns);
                     post = new Post(resultSet.getInt("id"), resultSet.getString("name"));
                 }
             }
@@ -172,5 +173,13 @@ public class PsqlStore implements IStore {
             throwables.printStackTrace();
         }
         return post;
+    }
+
+    public static void main(String... args) {
+        PsqlStore store = new PsqlStore();
+        Post model = store.findById(1);
+        System.out.println(model.getId() + "" + model.getName());
+
+
     }
 }

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Post" %>
 <%@ page import="java.util.Collection" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
 <html lang="en">
@@ -49,7 +49,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${posts}" var="post">
+                    <c:forEach var="post" items="${posts}">
                         <tr>
                             <td>
                                 <a href='<c:url value="/post/edit.jsp?id=${post.id}"/>'>

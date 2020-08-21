@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Stream;
 
 public class PsqlStore implements IStore {
 
@@ -56,6 +57,11 @@ public class PsqlStore implements IStore {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post")
         ) {
+            ResultSet resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                posts.add(new Post(resultSet.getInt("id"), resultSet.getString("name")));
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,8 +184,8 @@ public class PsqlStore implements IStore {
     public static void main(String... args) {
         PsqlStore store = new PsqlStore();
         Post model = store.findById(1);
+        store.findAllPosts();
+        store.findAllPosts().stream().forEach(System.out::print);
         System.out.println(model.getId() + "" + model.getName());
-
-
     }
 }

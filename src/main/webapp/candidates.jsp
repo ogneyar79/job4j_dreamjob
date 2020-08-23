@@ -8,8 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Candidate" %>
 <%@ page import="java.util.Collection" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!doctype html>
+<html lang="en">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -32,7 +34,8 @@
 </head>
 <body>
 <div class="container pt-3">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Работа мечты</title>
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -46,7 +49,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${candidates}" var="candidate">
+                    <c:forEach var="candidate" items="${candidates}">
                         <tr>
                             <td>
                                 <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}"/>'>

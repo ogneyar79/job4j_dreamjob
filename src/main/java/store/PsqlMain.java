@@ -1,5 +1,6 @@
 package store;
 
+import model.Candidate;
 import model.Post;
 
 public class PsqlMain {
@@ -9,6 +10,12 @@ public class PsqlMain {
         store.save(new Post(0, "Java Job"));
         for (Post post : store.findAllPosts()) {
             System.out.println(post.getId() + " " + post.getName());
+        }
+
+        store = PsqlStore.instOf();
+        store.save(new Candidate(0, "Maksimus"));
+        for (Candidate candidate : store.findAllCandidates()) {
+            System.out.println(candidate.getId() + " " + candidate.getName());
         }
     }
 }

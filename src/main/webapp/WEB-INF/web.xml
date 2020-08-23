@@ -6,17 +6,16 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
     version="4.0">
     <display-name>Archetype Created Web Application</display-name>
-    <servlet>
-        <servlet-name>PostServlet</servlet-name>
-        <servlet-class>servlet.PostServlet</servlet-class>
-    </servlet>
+
 
     <servlet>
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>servlet.UploadServlet</servlet-class>
     </servlet>
-
-
+    <servlet>
+        <servlet-name>PostServlet</servlet-name>
+        <servlet-class>servlet.PostServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>CandidateServlet</servlet-name>
         <servlet-class>servlet.CandidateServlet</servlet-class>

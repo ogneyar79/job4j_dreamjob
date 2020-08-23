@@ -18,22 +18,16 @@ public class PostServlet extends HttpServlet {
 
     final static Logger logger = getLogger(PostServlet.class);
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.error("BeginDoGetPostServlet");
-        logger.info("BeginDoGetPostServlet");
-        System.out.println("kkk");
         req.setAttribute("posts", PsqlStore.instOf().findAllPosts());
-
         req.getRequestDispatcher("posts.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        PsqlStore.instOf().save(new Post(
-                        Integer.valueOf(req.getParameter("id")),
+        PsqlStore.instOf().save(new Post(Integer.valueOf(req.getParameter("id")),
                         req.getParameter("name")
                 )
         );

@@ -56,7 +56,18 @@
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
                                 <c:out value="${candidate.name}"/>
+                                <c:out value="${candidate.photoId}"/>
+                                <a href="<c:url value='/candidate/upload.jsp'/>">Upload Candidate's image</a>
+
+                                <div class="form">
+                                    <form method="post" action="">
+                                    <input class="button" type="submit" value="Upload Candidate's image">
+                                    </form>
+                                </div>
+
+
                             </td>
+
                         </tr>
                     </c:forEach>
                     </tbody>

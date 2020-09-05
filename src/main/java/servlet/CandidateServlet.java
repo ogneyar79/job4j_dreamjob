@@ -1,6 +1,7 @@
 package servlet;
 
 import model.Candidate;
+import model.Photo;
 import store.PsqlStore;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,8 @@ public class CandidateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        PsqlStore.instOf().save(new Candidate(Integer.valueOf(req.getParameter("id")), req.getParameter("name")));
+        PsqlStore.instOf().save(new Candidate(Integer.valueOf(req.getParameter("id")),
+                req.getParameter("name"), new Photo(0, "").getId()));
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 }

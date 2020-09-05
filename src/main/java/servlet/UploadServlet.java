@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UploadServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
@@ -28,9 +27,7 @@ public class UploadServlet extends HttpServlet {
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
         dispatcher.forward(req, resp);
-    }
-
-    @Override
+    }@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletContext servletContext = this.getServletConfig().getServletContext();
@@ -41,14 +38,12 @@ public class UploadServlet extends HttpServlet {
             List<FileItem> items = upload.parseRequest(req);
             File folder = new File("images");
             if (!folder.exists()) {
-                folder.mkdir();
-            }
+                folder.mkdir(); }
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     File file = new File(folder + File.separator + item.getName());
                     try (FileOutputStream out = new FileOutputStream(file)) {
-                        out.write(item.getInputStream().readAllBytes());
-                    }
+                        out.write(item.getInputStream().readAllBytes()); }
                 }
             }
         } catch (FileUploadException e) {

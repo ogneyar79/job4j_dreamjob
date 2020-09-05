@@ -1,6 +1,7 @@
 package store;
 
 import model.Candidate;
+import model.Photo;
 import model.Post;
 import org.apache.commons.dbcp2.BasicDataSource;
 
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Stream;
 
 public class PsqlStore implements IStore {
 
@@ -69,6 +69,29 @@ public class PsqlStore implements IStore {
     }
 
     @Override
+    public Collection<Photo> findAllPhoto() {
+        List<Photo> photos = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM photo")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    photos.add(new Photo(it.getInt("id"), it.getString("name")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return photos;
+    }
+
+    @Override
+    public Photo findPhotoCandidates(Candidate model) {
+        return this.findAllPhoto().stream().filter(p -> p.getName().equalsIgnoreCase(model.getName()))
+                .findAny().orElse(new Photo(0, "NOPhoto"));
+    }
+
+    @Override
     public Collection<Candidate> findAllCandidates() {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
@@ -76,7 +99,7 @@ public class PsqlStore implements IStore {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"),it.getInt("photoId") ));
                 }
             }
         } catch (Exception e) {
@@ -103,6 +126,34 @@ public class PsqlStore implements IStore {
         }
     }
 
+    @Override
+    public void save(Photo photo) {
+        if (photo.getId() == 0) {
+            create(photo);
+        } else {
+            update(photo);
+        }
+    }
+
+    private Photo create(Photo photo) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO photo(name ) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, photo.getName());
+            ps.execute();
+
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    photo = new Photo(id.getInt(1), photo.getName());
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return photo;
+    }
+
+
     private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
@@ -111,7 +162,7 @@ public class PsqlStore implements IStore {
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
-                    candidate = new Candidate(id.getInt(1), candidate.getName());
+                    candidate = new Candidate(id.getInt(1), candidate.getName(), candidate.getPhotoId());
                 }
             }
         } catch (Exception e) {
@@ -135,6 +186,18 @@ public class PsqlStore implements IStore {
             e.printStackTrace();
         }
         return post;
+    }
+
+    private void update(Photo photo) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(" UPDATE photo set name = ? where id = ? ")
+        ) {
+            ps.setString(1, photo.getName());
+            ps.setString(2, String.valueOf(photo.getId()));
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     private void update(Candidate candidate) {

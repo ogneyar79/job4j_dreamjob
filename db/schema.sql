@@ -8,5 +8,14 @@ CREATE TABLE candidate (
    name TEXT
 );
 
+CREATE TABLE photo(
+   id SERIAL PRIMARY KEY
+);
+
+ALTER TABLE candidate ADD COLUMN photoId INTEGER REFERENCES photo(id) ON DELETE SET NULL;
+
+ALTER TABLE candidate DROP COLUMN photoId;
+
+ALTER TABLE photo ADD COLUMN name TEXT;
 
 

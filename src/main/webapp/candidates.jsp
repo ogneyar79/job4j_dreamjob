@@ -57,11 +57,11 @@
                                 </a>
                                 <c:out value="${candidate.name}"/>
                                 <c:out value="${candidate.photoId}"/>
-                                <a href="<c:url value='/candidate/upload.jsp'/>">Upload Candidate's image</a>
 
                                 <div class="form">
-                                    <form method="post" action="">
-                                    <input class="button" type="submit" value="Upload Candidate's image">
+                                    <form method="post" action="UploadServlet" enctype="/upload">
+                                        Choose a file: <input type="file" name="UploadServlet"/>
+                                        <input type="submit" value="Upload"/>
                                     </form>
                                 </div>
 

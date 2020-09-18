@@ -91,6 +91,7 @@ public class PsqlStore implements IStore {
                 .findAny().orElse(new Photo(0, "NOPhoto"));
     }
 
+
     @Override
     public Collection<Candidate> findAllCandidates() {
         List<Candidate> candidates = new ArrayList<>();
@@ -99,13 +100,18 @@ public class PsqlStore implements IStore {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"),it.getInt("photoId") ));
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("photoId")));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return candidates;
+    }
+
+    public Candidate findCandidate(int id) {
+        return this.findAllCandidates().stream().filter(c -> c.getId() == (id)).
+                findAny().orElse(new Candidate(id, "Zero", 0));
     }
 
     @Override
@@ -242,6 +248,30 @@ public class PsqlStore implements IStore {
             throwables.printStackTrace();
         }
         return post;
+    }
+
+    @Override
+    public Photo findByName(String name) {
+        Photo photo = new Photo(0, "NO");
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * from photo where name = ?")
+        ) {
+            ps.setString(1, name);
+            try (ResultSet resultSet = ps.executeQuery()) {
+                if (resultSet.next()) {
+                    photo = new Photo(resultSet.getInt("id"), resultSet.getString("name"));
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return photo;
+    }
+
+    @Override
+    public Photo findPhotoByName2(String name) {
+        return this.findAllPhoto().stream().filter(p -> p.getName().equalsIgnoreCase(name))
+                .findAny().orElse(new Photo(0, "NOPhoto"));
     }
 
     public static void main(String... args) {

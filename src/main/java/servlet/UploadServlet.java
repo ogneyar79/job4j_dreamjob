@@ -1,9 +1,13 @@
 package servlet;
 
+import model.Candidate;
+import model.Photo;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import store.IStore;
+import store.PsqlStore;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -27,7 +31,9 @@ public class UploadServlet extends HttpServlet {
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
         dispatcher.forward(req, resp);
-    }@Override
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DiskFileItemFactory factory = new DiskFileItemFactory();
         ServletContext servletContext = this.getServletConfig().getServletContext();
@@ -38,12 +44,21 @@ public class UploadServlet extends HttpServlet {
             List<FileItem> items = upload.parseRequest(req);
             File folder = new File("images");
             if (!folder.exists()) {
-                folder.mkdir(); }
+                folder.mkdir();
+            }
             for (FileItem item : items) {
                 if (!item.isFormField()) {
                     File file = new File(folder + File.separator + item.getName());
                     try (FileOutputStream out = new FileOutputStream(file)) {
-                        out.write(item.getInputStream().readAllBytes()); }
+                        out.write(item.getInputStream().readAllBytes());
+                        IStore store = PsqlStore.instOf();
+                        store.save(new Photo(0, file.getName()));
+                        Photo photo = store.findPhotoByName2(file.getName());
+
+                        Candidate temp = store.findCandidate(Integer.parseInt(req.getParameter("id")));   ///?
+                        store.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
+
+                    }
                 }
             }
         } catch (FileUploadException e) {

@@ -58,13 +58,15 @@
                                 <c:out value="${candidate.name}"/>
                                 <c:out value="${candidate.photoId}"/>
 
+
+
                                 <div class="form">
-                                    <form method="post" action="UploadServlet" enctype="/upload">
+                                    <form method="post" action="UploadServlet" enctype="/upload"?id="${candidate.id}">
+
                                         Choose a file: <input type="file" name="UploadServlet"/>
                                         <input type="submit" value="Upload"/>
                                     </form>
                                 </div>
-
 
                             </td>
 

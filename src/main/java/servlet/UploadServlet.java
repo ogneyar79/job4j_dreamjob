@@ -55,9 +55,8 @@ public class UploadServlet extends HttpServlet {
                         store.save(new Photo(0, file.getName()));
                         Photo photo = store.findPhotoByName2(file.getName());
 
-                        Candidate temp = store.findCandidate(Integer.parseInt(req.getParameter("id")));   ///?
+                        Candidate temp = store.findCandidate(Integer.parseInt(req.getParameter("id")));
                         store.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
-
                     }
                 }
             }

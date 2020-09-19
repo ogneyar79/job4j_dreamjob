@@ -27,6 +27,7 @@ public interface IStore {
     Photo findPhotoByName2(String name);
 
     Photo findByName(String name);
+    public Photo findPhotoById(int id);
 
     Candidate findCandidate(int id);
 }

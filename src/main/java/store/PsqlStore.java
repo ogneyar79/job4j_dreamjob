@@ -274,6 +274,11 @@ public class PsqlStore implements IStore {
                 .findAny().orElse(new Photo(0, "NOPhoto"));
     }
 
+    public Photo findPhotoById(int id) {
+        return this.findAllPhoto().stream().filter(p -> p.getId() == id)
+                .findAny().orElse(new Photo(0, "NOPhoto"));
+    }
+
     public static void main(String... args) {
         PsqlStore store = new PsqlStore();
         Post model = store.findById(1);

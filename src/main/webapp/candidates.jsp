@@ -57,22 +57,18 @@
                                 </a>
                                     <c:out value="${candidate.name}"/>
                                     <c:out value="${candidate.photoId}"/>
-                                <img src="<c:url value='/download?photo=${candidate.photoId}'/>" width="200px"
-                                     height="200px"/>
-
+                            <td>
+                                <img src="<c:url value='/download?photo=${candidate.photoId}'/>" width="200px" height="200px"/>
+                            </td>
 
                             <td>
-                                <a href="<c:url value='/download?photoId=${candidate.photoId}'/>"></a>
+                                <a href="<c:url value='/uploading?id=${candidate.id}'/>">Upload</a>
                             </td>
 
 
-                            <div class="form">
-                                <form method="post" action="UploadServlet" enctype="/upload" ?id="${candidate.id}">
-
-                                    Choose a file: <input type="file" name="UploadServlet"/>
-                                    <input type="submit" value="Upload"/>
-                                </form>
-                            </div>
+                            <td>
+                                <a href="<c:url value='/download?photoId=${candidate.photoId}'/>">Download</a>
+                            </td>
 
                             </td>
 

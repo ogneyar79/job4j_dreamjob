@@ -44,11 +44,20 @@
         <servlet-name>DownloadServlet</servlet-name>
         <url-pattern>/download</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FormServlet</servlet-name>
+        <url-pattern>/uploading</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlet.DownloadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FormServlet</servlet-name>
+        <servlet-class>servlet.FormServlet</servlet-class>
+    </servlet>
+
 </web-app>
 
 

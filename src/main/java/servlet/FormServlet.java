@@ -11,11 +11,10 @@ public class FormServlet extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setAttribute("id", Integer.parseInt(req.getParameter("id")));  //     set candidate id by we going to find, and save photo in this candidate
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/uploading.jsp");
         dispatcher.forward(req, resp);
     }
 }

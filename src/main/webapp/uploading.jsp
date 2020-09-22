@@ -32,10 +32,8 @@
 <body>
 
 
-<c:param name="candidateId" value="${id}"/>
 <div class="form">
-    <form method="post" action="/upload" enctype="multipart/form-data" ?id="${candidateId}">
-        <input type="hidden" name="id" value="${candidateId}"/>
+    <form action="/upload" enctype="multipart/form-data" ?id="${candidateId}" method="post">
         Choose a file: <input type="file" name="UploadServlet"/>
         <input type="submit" value="Upload"/>
     </form>

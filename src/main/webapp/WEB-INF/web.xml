@@ -8,8 +8,8 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
-        <servlet-name>UploadServlet</servlet-name>
-        <servlet-class>servlet.UploadServlet</servlet-class>
+        <servlet-name>IndexServlet</servlet-name>
+        <servlet-class>servlet.IndexServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PostServlet</servlet-name>
@@ -19,10 +19,22 @@
         <servlet-name>CandidateServlet</servlet-name>
         <servlet-class>servlet.CandidateServlet</servlet-class>
     </servlet>
+
+
     <servlet>
-        <servlet-name>IndexServlet</servlet-name>
-        <servlet-class>servlet.IndexServlet</servlet-class>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>servlet.UploadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DownloadServlet</servlet-name>
+        <servlet-class>servlet.DownloadServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FormServlet</servlet-name>
+        <servlet-class>servlet.FormServlet</servlet-class>
+    </servlet>
+
+
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
         <url-pattern>/index.do</url-pattern>
@@ -48,15 +60,6 @@
         <servlet-name>FormServlet</servlet-name>
         <url-pattern>/uploading</url-pattern>
     </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DownloadServlet</servlet-name>
-        <servlet-class>servlet.DownloadServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>FormServlet</servlet-name>
-        <servlet-class>servlet.FormServlet</servlet-class>
-    </servlet>
 
 </web-app>
 

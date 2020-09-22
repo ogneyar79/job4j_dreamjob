@@ -31,14 +31,14 @@
 </head>
 <body>
 
-<c : set var="candidateId" scope="request" value=${id}>
 
-    <div class="form">
-        <form method="post" action="UploadServlet" enctype="/upload" ?id="${candidateId}">
-
-            Choose a file: <input type="file" name="UploadServlet"/>
-            <input type="submit" value="Upload"/>
-        </form>
-    </div>
+<c:param name="candidateId" value="${id}"/>
+<div class="form">
+    <form method="post" action="/upload" enctype="multipart/form-data" ?id="${candidateId}">
+        <input type="hidden" name="id" value="${candidateId}"/>
+        Choose a file: <input type="file" name="UploadServlet"/>
+        <input type="submit" value="Upload"/>
+    </form>
+</div>
 </body>
 </html>

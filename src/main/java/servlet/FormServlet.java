@@ -16,6 +16,7 @@ public class FormServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.setAttribute("id", Integer.parseInt(req.getParameter("id")));  //     set candidate id by we going to find, and save photo in this candidate
+        System.out.println("FS " + req.getAttribute("id"));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/uploading.jsp");
         dispatcher.forward(req, resp);
     }

@@ -16,24 +16,18 @@
         <servlet-class>servlet.PostServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CandidateServlet</servlet-name>
-        <servlet-class>servlet.CandidateServlet</servlet-class>
-    </servlet>
-
-
-    <servlet>
-        <servlet-name>UploadServlet</servlet-name>
-        <servlet-class>servlet.UploadServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DownloadServlet</servlet-name>
         <servlet-class>servlet.DownloadServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>CandidateServlet</servlet-name>
+        <servlet-class>servlet.CandidateServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>FormServlet</servlet-name>
         <servlet-class>servlet.FormServlet</servlet-class>
     </servlet>
-
 
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>
@@ -43,22 +37,29 @@
         <servlet-name>PostServlet</servlet-name>
         <url-pattern>/posts.do</url-pattern>
     </servlet-mapping>
+
+    <!-- mapping -->
+    <servlet-mapping>
+        <servlet-name>DownloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CandidateServlet</servlet-name>
         <url-pattern>/candidates.do</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>UploadServlet</servlet-name>
-        <url-pattern>/upload</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DownloadServlet</servlet-name>
-        <url-pattern>/download</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>FormServlet</servlet-name>
         <url-pattern>/uploading</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UploadServlet</servlet-name>
+        <servlet-class>servlet.UploadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
     </servlet-mapping>
 
 </web-app>

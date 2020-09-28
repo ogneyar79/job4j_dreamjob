@@ -27,14 +27,17 @@
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
 
-    <title>Работа мечты</title>
+    <title> Photo Uploading Form</title>
 </head>
 <body>
-
-
+<c:out value="${id}"/>
+<h3>Photo Upload:</h3>
+Select a file to upload: <br/>
 <div class="form">
-    <form action="/upload" enctype="multipart/form-data" ?id="${candidateId}" method="post">
-        Choose a file: <input type="file" name="UploadServlet"/>
+
+    <form method="post" enctype="multipart/form-data" action=“<c:url value="/upload?id=${id}" />" >
+        Choose a file: <input type="file" name="file"/>
+        <br/>
         <input type="submit" value="Upload"/>
     </form>
 </div>

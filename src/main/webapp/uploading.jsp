@@ -31,11 +31,12 @@
 </head>
 <body>
 <c:out value="${id}"/>
+<c:out value="Photo Uploading Form"/>
 <h3>Photo Upload:</h3>
 Select a file to upload: <br/>
 <div class="form">
 
-    <form method="post" enctype="multipart/form-data" action=“<c:url value="/upload?id=${id}" />" >
+    <form method="post" enctype="multipart/form-data" action="<c:url value="/upload?id=${id}" />">
         Choose a file: <input type="file" name="file"/>
         <br/>
         <input type="submit" value="Upload"/>

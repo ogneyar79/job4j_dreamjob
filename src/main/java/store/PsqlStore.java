@@ -211,7 +211,7 @@ public class PsqlStore implements IStore {
              PreparedStatement ps = cn.prepareStatement(" UPDATE candidate set name = ? where id = ? ")
         ) {
             ps.setString(1, candidate.getName());
-            ps.setString(2, String.valueOf(candidate.getId()));
+            ps.setInt(2, candidate.getId());
             ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();

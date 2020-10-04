@@ -57,8 +57,10 @@
                                 </a>
                                     <c:out value="${candidate.name}"/>
                                     <c:out value="${candidate.photoId}"/>
+                                    <c:out value="${candidate.id}"/>
                             <td>
-                                <img src="<c:url value='/download?photo=${candidate.photoId}'/>" width="200px" height="200px"/>
+                                <img src="<c:url value='/download?photo=${candidate.photoId}'/>" width="200px"
+                                     height="200px"/>
                             </td>
 
                             <td>
@@ -69,7 +71,6 @@
                             <td>
                                 <a href="<c:url value='/download?photoId=${candidate.photoId}'/>">Download</a>
                             </td>
-
                             </td>
 
                         </tr>

@@ -30,12 +30,17 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
+        List<File> photoFile = new ArrayList<>();
+        for (File file : new File("images").listFiles()) {
+            photoFile.add(file);
+        }
         for (File name : new File("images").listFiles()) {
             images.add(name.getName());
         }
-        req.setAttribute("images", images);
-        System.out.println(" DoGet" + req.getParameter("id"));
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/candidates.do");
+        req.getServletContext().setAttribute("photo", photoFile);
+        req.getServletContext().setAttribute("images", images);
+        System.out.println(" DoGet UploadServlet" + req.getParameter("id"));
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/candidates.jsp");
         dispatcher.forward(req, resp);
     }
 
@@ -75,15 +80,25 @@ public class UploadServlet extends HttpServlet {
                     outt.println("<title>Servlet upload</title>");
                     outt.println("</head>");
                     outt.println("<body>");
-                    File file = new File(folder + File.separator + item.getName());
+                    File file = new File(folder + File.separator + item.getName()); // Create file with name ?
                     try (FileOutputStream out = new FileOutputStream(file)) {
                         out.write(item.getInputStream().readAllBytes());
                         IStore store = PsqlStore.instOf();
-                        store.save(new Photo(0, file.getName()));
-                        Photo photo = store.findPhotoByName2(file.getName());
+                        Candidate temp = store.findCandidate(Integer.parseInt(req.getParameter("id")));   //get  id Candidate Where we are working with
+                        System.out.println(" Id Candidate that we get from " + req.getParameter("id"));
+                        System.out.println(" File NAME" + " " + file.getName());
+                        if (temp.getPhotoId() == 0) {
+                            System.out.println("UploadServlet Photo no upload new Photo");
+                            store.save(new Photo(0, file.getName()));
+                        } else {
+                            System.out.println("UploadServlet We have Photo we change it and for new Photo");
+                            store.save(new Photo(store.findPhotoCandidates(temp).getId(), file.getName()));
+                        }
+                        // check we have photo or not
+                        Photo photo = store.findPhotoByName2(file.getName()); // we get photo that was saved and add to our Candidate
 
-                        Candidate temp = store.findCandidate(Integer.parseInt(req.getParameter("id")));
                         store.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
+                        System.out.println(" We save candidate with" + " Id" + temp.getId() + " Name" + temp.getName() + "PhotoId" + photo.getId());
                     }
                 }
             }

@@ -62,6 +62,15 @@
         <url-pattern>/upload</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DownloadingServlet</servlet-name>
+        <servlet-class>servlet.DownloadingServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadingServlet</servlet-name>
+        <url-pattern>/downloading</url-pattern>
+    </servlet-mapping>
+
 </web-app>
 
 

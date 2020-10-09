@@ -39,9 +39,8 @@ public class UploadServlet extends HttpServlet {
         }
         req.getServletContext().setAttribute("photo", photoFile);
         req.getServletContext().setAttribute("images", images);
-        System.out.println(" DoGet UploadServlet" + req.getParameter("id"));
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/candidates.jsp");
-        dispatcher.forward(req, resp);
+        System.out.println(" DoGet UploadServlet" + " " + req.getParameter("id"));
+        resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 
     @Override
@@ -53,18 +52,8 @@ public class UploadServlet extends HttpServlet {
         factory.setRepository(repository);
         ServletFileUpload upload = new ServletFileUpload(factory);
         isMultipart = ServletFileUpload.isMultipartContent(req);
-        resp.setContentType("text/html");
-        PrintWriter outt = resp.getWriter();
+        //  resp.setContentType("text/html");
         if (!isMultipart) {
-            outt.println("<html>");
-            outt.println("<head>");
-            outt.println("<title>Servlet upload</title>");
-            outt.println("</head>");
-            outt.println("<body>");
-            outt.println("ID" + req.getParameter("id"));
-            outt.println("<p>No file uploaded</p>");
-            outt.println("</body>");
-            outt.println("</html>");
             return;
         }
         try {
@@ -75,11 +64,6 @@ public class UploadServlet extends HttpServlet {
             }
             for (FileItem item : items) {
                 if (!item.isFormField()) {
-                    outt.println("<html>");
-                    outt.println("<head>");
-                    outt.println("<title>Servlet upload</title>");
-                    outt.println("</head>");
-                    outt.println("<body>");
                     File file = new File(folder + File.separator + item.getName()); // Create file with name ?
                     try (FileOutputStream out = new FileOutputStream(file)) {
                         out.write(item.getInputStream().readAllBytes());
@@ -90,15 +74,22 @@ public class UploadServlet extends HttpServlet {
                         if (temp.getPhotoId() == 0) {
                             System.out.println("UploadServlet Photo no upload new Photo");
                             store.save(new Photo(0, file.getName()));
+
                         } else {
                             System.out.println("UploadServlet We have Photo we change it and for new Photo");
                             store.save(new Photo(store.findPhotoCandidates(temp).getId(), file.getName()));
                         }
                         // check we have photo or not
+                        System.out.println("We save photo");
                         Photo photo = store.findPhotoByName2(file.getName()); // we get photo that was saved and add to our Candidate
-
+                        System.out.println("We try to get Photo that's saved" + " " + photo +" "+ "Id " + photo.getId() +" "+ "name " + photo.getName());
                         store.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
+                        Candidate show = store.findCandidate(temp.getId());
+                        System.out.println(" Work with candidate" + "Name" + show.getName() + "Id" + show.getId() + "PhotoId" + show.getPhotoId());
+                        Photo photo1 = store.findPhotoById(show.getPhotoId());
+                        System.out.println(photo1.getName() + "Photo Name" + "fileName" + file.getName());
                         System.out.println(" We save candidate with" + " Id" + temp.getId() + " Name" + temp.getName() + "PhotoId" + photo.getId());
+               //         store.findAllCandidates().stream().forEach(System.out::println);
                     }
                 }
             }

@@ -7,14 +7,13 @@ public class Candidate {
     private final int id;
     private final String name;
 
-    private final int  photoId;
+    private final int photoId;
 
     public Candidate(int id, String name, int photoId) {
         this.id = id;
         this.name = name;
         this.photoId = photoId;
     }
-
 
 
     public int getId() {
@@ -37,6 +36,13 @@ public class Candidate {
         return id == candidate.id &&
                 photoId == candidate.photoId &&
                 Objects.equals(name, candidate.name);
+    }
+
+    @Override
+    public String toString() {
+        return "Name" + this.getName() +
+                "PhotoId" + this.getPhotoId() +
+                "Id" + this.getId();
     }
 
     @Override

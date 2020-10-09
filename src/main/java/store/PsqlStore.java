@@ -159,7 +159,6 @@ public class PsqlStore implements IStore {
         return photo;
     }
 
-
     private Candidate create(Candidate candidate) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS)
@@ -208,10 +207,11 @@ public class PsqlStore implements IStore {
 
     private void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(" UPDATE candidate set name = ? where id = ? ")
+             PreparedStatement ps = cn.prepareStatement(" UPDATE candidate set name = ?, photoId = ? where id = ? ")
         ) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setInt(2, candidate.getPhotoId());
+            ps.setInt(3, candidate.getId());
             ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -285,5 +285,10 @@ public class PsqlStore implements IStore {
         store.findAllPosts();
         store.findAllPosts().stream().forEach(System.out::print);
         System.out.println(model.getId() + "" + model.getName());
+        int id = 10;
+        String name = " Experiment";
+        int photoId = 33;
+        Candidate candidate = new Candidate(id, name, photoId);
+        store.save(candidate);
     }
 }

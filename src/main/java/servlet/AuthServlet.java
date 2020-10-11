@@ -10,6 +10,7 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("AS doPost ");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         if ("root@local".equals(email) && "root".equals(password)) {

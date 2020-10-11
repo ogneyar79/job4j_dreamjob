@@ -11,7 +11,6 @@
 <%@ page import="model.Candidate" %>
 <%@ page import="store.PsqlStore" %>
 <!doctype html>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <!-- Required meta tags -->

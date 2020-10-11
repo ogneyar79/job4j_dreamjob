@@ -89,7 +89,7 @@ public class UploadServlet extends HttpServlet {
                         Photo photo1 = store.findPhotoById(show.getPhotoId());
                         System.out.println(photo1.getName() + "Photo Name" + "fileName" + file.getName());
                         System.out.println(" We save candidate with" + " Id" + temp.getId() + " Name" + temp.getName() + "PhotoId" + photo.getId());
-               //         store.findAllCandidates().stream().forEach(System.out::println);
+
                     }
                 }
             }

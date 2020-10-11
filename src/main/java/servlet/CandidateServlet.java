@@ -23,8 +23,7 @@ public class CandidateServlet extends HttpServlet {
       //  store.findAllCandidates().stream().forEach(System.out::println);
  //       candidates.stream().forEach(System.out::println);
         System.out.println(" DoGet  CandidateServlet");
-//        System.out.println("Candidate name Mak" + " " + canMac.getName() + " "
-//                + " CandiateId" + " " + canMac.getId() + " " + "CandidatePhotoId" + " " + canMac.getPhotoId());
+
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 

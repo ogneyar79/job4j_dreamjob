@@ -1,6 +1,7 @@
 package servlet;
 
 import model.Photo;
+import servlet.methodfordownloading.ServletResponseOutfile;
 import store.IStore;
 import store.PsqlStore;
 
@@ -21,26 +22,14 @@ public class DownloadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println(" Do Get DS");
-        int photoId = Integer.parseInt(req.getParameter("photo"));  // get Param = candidate.photoId from candidate.jsp that equals photoId
-        String candidateName = req.getParameter("name");
+        int photoId = Integer.parseInt(req.getParameter("photo"));
         IStore store = PsqlStore.instOf();
         Photo photo = store.findPhotoById(photoId);
         String name = photo.getName();
-        if (photo.getName().equals("NOPhoto")) {
-            // No record found, redirect to default image.
-            System.out.println("Photo Name" + name + " " + "NULL");
-            File file = new File("C:\\Users\\Администратор\\IdeaProjects\\job4j_dreamjob\\src\\main\\webapp\\image\\Screenshot_1.png");
-            try (FileInputStream in = new FileInputStream(file)) {
-                resp.getOutputStream().write(in.readAllBytes());
-            }
-        }
         if (!photo.getName().equals("NOPhoto")) {
-            System.out.println("Photo Name" + name);
-            resp.setContentType("name=" + name);
-            resp.setContentType("image/png");
-            resp.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
-            File file = new File("images" + File.separator + name);
-            try (FileInputStream in = new FileInputStream(file)) {
+            new ServletResponseOutfile().makeFileOut(name, resp);
+        } else {
+            try (FileInputStream in = new FileInputStream(new File("C:\\Tools\\apache-tomcat-9.0.37\\bin\\images\\Screenshot_1.png"))) {
                 resp.getOutputStream().write(in.readAllBytes());
             }
         }

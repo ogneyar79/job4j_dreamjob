@@ -1,6 +1,7 @@
 package servlet;
 
 import model.Photo;
+import servlet.methodfordownloading.ServletResponseOutfile;
 import store.IStore;
 import store.PsqlStore;
 
@@ -17,17 +18,19 @@ public class DownloadingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("DownLoadServlet");
+
         int photoId = Integer.parseInt(req.getParameter("photoId"));
-        IStore store = PsqlStore.instOf();
-        Photo photo = store.findPhotoById(photoId);
-        String name = photo.getName();
-        System.out.println("Photo NAME" + " " + name + " " + "PhotoId" + " " + photoId);
-        resp.setContentType(name);
-        resp.setContentType("image/png");
-        resp.setHeader("Content-Disposition", "attachment; filename=\"" + name + "\"");
-        File file = new File("images" + File.separator + name);
-        try (FileInputStream in = new FileInputStream(file)) {
-            resp.getOutputStream().write(in.readAllBytes());
+        System.out.println(photoId + "" + "photoId");
+        if (photoId == 0) {
+            System.out.println("O Trying");
+            try (FileInputStream in = new FileInputStream(new File("C:\\Tools\\apache-tomcat-9.0.37\\bin\\images\\Screenshot_1.png"))) {
+                resp.getOutputStream().write(in.readAllBytes());
+            }
         }
+        Photo photo = PsqlStore.instOf().findPhotoById(photoId);
+        String name = photo.getName();
+        new ServletResponseOutfile().makeFileOut(name, resp);
+
     }
 }
+

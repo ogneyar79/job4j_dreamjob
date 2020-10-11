@@ -69,7 +69,7 @@
                             </td>
 
                             <td>
-                                <a href="<c:url value='/downloading?photoId=${candidate.photoId}'/>">Download</a>
+                                <a href="<c:url value='/download?photo=${candidate.photoId}'/>">Download</a>
                             </td>
                             </td>
                         </tr>

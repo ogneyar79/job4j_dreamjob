@@ -3,6 +3,8 @@ package servlet;
 import model.Photo;
 
 
+import store.PhotoEntity;
+import store.PostEntity;
 import store.PsqlStore;
 
 import javax.servlet.http.HttpServlet;
@@ -22,11 +24,12 @@ public class DownloadServlet extends HttpServlet {
             resp.getOutputStream().write(in.readAllBytes());
         }
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println(" Do Get DS");
         int photoId = Integer.parseInt(req.getParameter("photo"));
-        Photo photo = PsqlStore.instOf().findPhotoById(photoId);
+        Photo photo = new PhotoEntity().findById(photoId);
         String name = photo.getName();
         if (photoId == 0) {
             name = "Screenshot_1.png";

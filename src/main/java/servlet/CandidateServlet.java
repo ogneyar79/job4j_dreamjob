@@ -2,6 +2,8 @@ package servlet;
 
 import model.Candidate;
 import model.Photo;
+import store.CandidateEntity;
+import store.IPsqlStoreBase;
 import store.IStore;
 import store.PsqlStore;
 
@@ -15,13 +17,11 @@ import java.util.Collection;
 
 public class CandidateServlet extends HttpServlet {
 
+    IPsqlStoreBase<Candidate> candidateEntity = new CandidateEntity();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        IStore store = PsqlStore.instOf();
-        req.setAttribute("candidates", store.findAllCandidates());
- //       Collection<Candidate> candidates = (Collection<Candidate>) req.getAttribute("candidates");
-      //  store.findAllCandidates().stream().forEach(System.out::println);
- //       candidates.stream().forEach(System.out::println);
+       // IStore store = PsqlStore.instOf();
+        req.setAttribute("candidates", candidateEntity.findAllEntity());
         System.out.println(" DoGet  CandidateServlet");
 
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
@@ -31,7 +31,7 @@ public class CandidateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
         System.out.println(" DoPost  CandidateServlet");
-        PsqlStore.instOf().save(new Candidate(Integer.valueOf(req.getParameter("id")),
+        candidateEntity.save(new Candidate(Integer.valueOf(req.getParameter("id")),
                 req.getParameter("name"), Integer.valueOf(req.getParameter("photoId"))));
 
         resp.sendRedirect(req.getContextPath() + "/candidates.do");

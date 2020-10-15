@@ -6,8 +6,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import store.IStore;
-import store.PsqlStore;
+import store.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -52,7 +51,7 @@ public class UploadServlet extends HttpServlet {
         factory.setRepository(repository);
         ServletFileUpload upload = new ServletFileUpload(factory);
         isMultipart = ServletFileUpload.isMultipartContent(req);
-        //  resp.setContentType("text/html");
+
         if (!isMultipart) {
             return;
         }
@@ -68,28 +67,30 @@ public class UploadServlet extends HttpServlet {
                     try (FileOutputStream out = new FileOutputStream(file)) {
                         out.write(item.getInputStream().readAllBytes());
                         IStore store = PsqlStore.instOf();
-                        Candidate temp = store.findCandidate(Integer.parseInt(req.getParameter("id")));   //get  id Candidate Where we are working with
+                        IPsqlStoreBase candidateTable = new CandidateEntity();
+
+                        Candidate temp = (Candidate) candidateTable.findById(Integer.parseInt(req.getParameter("id")));   //get  id Candidate Where we are working with
                         System.out.println(" Id Candidate that we get from " + req.getParameter("id"));
                         System.out.println(" File NAME" + " " + file.getName());
+                        PhotoEntity photoBase = new PhotoEntity();
                         if (temp.getPhotoId() == 0) {
                             System.out.println("UploadServlet Photo no upload new Photo");
-                            store.save(new Photo(0, file.getName()));
+                            photoBase.save(new Photo(0, file.getName()));
 
                         } else {
                             System.out.println("UploadServlet We have Photo we change it and for new Photo");
-                            store.save(new Photo(store.findPhotoCandidates(temp).getId(), file.getName()));
+                            photoBase.save(new Photo(store.findPhotoCandidates(temp).getId(), file.getName()));
                         }
                         // check we have photo or not
                         System.out.println("We save photo");
-                        Photo photo = store.findPhotoByName2(file.getName()); // we get photo that was saved and add to our Candidate
-                        System.out.println("We try to get Photo that's saved" + " " + photo +" "+ "Id " + photo.getId() +" "+ "name " + photo.getName());
-                        store.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
-                        Candidate show = store.findCandidate(temp.getId());
+                        Photo photo = photoBase.findPhotoByName2(file.getName()); // we get photo that was saved and add to our Candidate
+                        System.out.println("We try to get Photo that's saved" + " " + photo + " " + "Id " + photo.getId() + " " + "name " + photo.getName());
+                        candidateTable.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
+                        Candidate show = (Candidate) candidateTable.findById(temp.getId());
                         System.out.println(" Work with candidate" + "Name" + show.getName() + "Id" + show.getId() + "PhotoId" + show.getPhotoId());
-                        Photo photo1 = store.findPhotoById(show.getPhotoId());
+                        Photo photo1 = photoBase.findById(show.getPhotoId());
                         System.out.println(photo1.getName() + "Photo Name" + "fileName" + file.getName());
                         System.out.println(" We save candidate with" + " Id" + temp.getId() + " Name" + temp.getName() + "PhotoId" + photo.getId());
-
                     }
                 }
             }

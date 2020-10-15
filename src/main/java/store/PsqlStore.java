@@ -20,6 +20,10 @@ public class PsqlStore implements IStore {
 
     private final BasicDataSource pool = new BasicDataSource();
 
+    public BasicDataSource getPool() {
+        return pool;
+    }
+
     private PsqlStore() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(

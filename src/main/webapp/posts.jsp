@@ -51,9 +51,12 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> | Выйти</a>
             </li>
+
+            <c:out value="${user.name}"/>
         </ul>
+
         <div class="card" style="width: 100%">
             <div class="card-header">
                 Вакансии

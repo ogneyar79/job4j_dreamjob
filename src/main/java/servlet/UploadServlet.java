@@ -38,6 +38,9 @@ public class UploadServlet extends HttpServlet {
         }
         req.getServletContext().setAttribute("photo", photoFile);
         req.getServletContext().setAttribute("images", images);
+
+        req.setAttribute("user", req.getSession().getAttribute("user"));
+
         System.out.println(" DoGet UploadServlet" + " " + req.getParameter("id"));
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }

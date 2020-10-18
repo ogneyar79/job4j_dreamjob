@@ -42,6 +42,8 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
             </li>
 
+            <c:out value="${user.name}"/>
+
         </ul>
     </div>
     <div class="row">

@@ -49,6 +49,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    <c:out value="${user.name}"/>
                     <c:forEach var="candidate" items="${candidates}">
                         <tr>
                             <td>

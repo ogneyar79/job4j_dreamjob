@@ -6,10 +6,7 @@ import model.Post;
 import model.User;
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -70,6 +67,8 @@ public class UserEntity implements IPsqlStoreBase<User> {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
+            ps.executeUpdate();
+            System.out.println(ps);
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
                     user = new User(id.getInt(1), user.getName(), user.getEmail(), user.getPassword());
@@ -115,12 +114,13 @@ public class UserEntity implements IPsqlStoreBase<User> {
     }
 
     public static void main(String... args) {
-
         IPsqlStoreBase users = new UserEntity();
         User admin = new User(0, "Admin", "element@mail.ru", "234Alphabet");
-        users.save(admin);
+        //      users.save(admin);
 
         users.findAllEntity().stream().forEach(System.out::println);
+        User show = (User) users.findAllEntity().stream().findAny().get();
+        //      System.out.println(show);
     }
 
 

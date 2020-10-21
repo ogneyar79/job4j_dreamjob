@@ -28,7 +28,7 @@ public class RegServlet extends HttpServlet {
         UserEntity store = new UserEntity();
         store.save(new User(0, name, email, password));
 
-        req.getRequestDispatcher("reg.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/login.jsp");
     }
 
 

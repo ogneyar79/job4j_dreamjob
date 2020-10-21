@@ -71,6 +71,15 @@
         <url-pattern>/auth.do</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>RegServlet</servlet-name>
+        <servlet-class>servlet.RegServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegServlet</servlet-name>
+        <url-pattern>/reg.do</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>AuthFilter</filter-name>
         <filter-class>filter.AuthFilter</filter-class>
@@ -79,16 +88,6 @@
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>*.do</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>RegServlet</filter-name>
-        <filter-class>servlet.RegServlet</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>RegServlet</filter-name>
-        <url-pattern>reg.do</url-pattern>
     </filter-mapping>
 
 </web-app>

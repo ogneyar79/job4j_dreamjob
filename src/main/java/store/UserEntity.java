@@ -14,7 +14,7 @@ import java.util.List;
 public class UserEntity implements IPsqlStoreBase<User> {
 
 
-    final BasicDataSource pool = PsqlStore.instOf().getPool();
+    private final BasicDataSource pool = PsqlStore.instOf().getPool();
 
     public User findByEmail(String email) {
         User user = new User(0, "NoName", "NoEmail", "NoPassword");
@@ -53,7 +53,7 @@ public class UserEntity implements IPsqlStoreBase<User> {
 
     @Override
     public void save(User user) {
-        if (user == null | user.getId() == 0) {
+        if (user == null || user.getId() == 0) {
             create(user);
         } else {
             update(user);

@@ -80,6 +80,17 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+
+    <filter>
+        <filter-name>RegServlet</filter-name>
+        <filter-class>servlet.RegServlet</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>RegServlet</filter-name>
+        <url-pattern>reg.do</url-pattern>
+    </filter-mapping>
+
 </web-app>
 
 

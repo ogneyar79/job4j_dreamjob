@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class AuthServlet extends HttpServlet {
 
-    UserEntity store = new UserEntity();
+   UserEntity store = new UserEntity();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,8 +29,7 @@ public class AuthServlet extends HttpServlet {
             sc.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/posts.do");
         } else {
-            req.setAttribute("error", "Не верный email или пароль");
-            req.getRequestDispatcher("login.jsp").forward(req, resp);
+            req.getRequestDispatcher(req.getContextPath() + "/reg.do").forward(req, resp);
         }
     }
 }

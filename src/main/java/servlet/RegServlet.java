@@ -3,6 +3,7 @@ package servlet;
 import model.User;
 import store.UserEntity;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,10 @@ public class RegServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("DoGET " + " " + "REGSERVLET");
+      //  RequestDispatcher dispatcher = req.getRequestDispatcher("reg.jsp");
+     //   dispatcher.forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/reg.jsp");
 
-        req.getRequestDispatcher("reg.jsp").forward(req, resp);
     }
 
     @Override

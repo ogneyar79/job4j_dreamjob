@@ -12,25 +12,18 @@ import java.io.IOException;
 
 public class AuthServlet extends HttpServlet {
 
-    UserEntity store = new UserEntity();
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         System.out.println("AuthS doPost ");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-
-        if (store.findByEmail(email).getPassword().equals(password)) {
+        User user = new UserEntity().findByEmail(email);
+        if (user.getPassword().equals(password)) {
             HttpSession sc = req.getSession();
-            User user = store.findByEmail(email);
-            //       admin.setName("Admin");
-            //       admin.setEmail(email);
             sc.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/posts.do");
         } else {
             resp.sendRedirect(req.getContextPath() + "/reg.do");
-          //  req.getRequestDispatcher("/reg.do").forward(req, resp);
         }
     }
 }

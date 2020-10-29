@@ -13,7 +13,6 @@ import java.util.List;
 
 public class UserEntity implements IPsqlStoreBase<User> {
 
-
     private final BasicDataSource pool = PsqlStore.instOf().getPool();
 
     public User findByEmail(String email) {
@@ -80,7 +79,6 @@ public class UserEntity implements IPsqlStoreBase<User> {
         return user;
     }
 
-
     private void update(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(" UPDATE users set name = ?, email = ?, password = ? where id = ? ")
@@ -116,12 +114,8 @@ public class UserEntity implements IPsqlStoreBase<User> {
     public static void main(String... args) {
         IPsqlStoreBase users = new UserEntity();
         User admin = new User(0, "Admin", "element@mail.ru", "234Alphabet");
-        //      users.save(admin);
 
         users.findAllEntity().stream().forEach(System.out::println);
         User show = (User) users.findAllEntity().stream().findAny().get();
-        //      System.out.println(show);
     }
-
-
 }

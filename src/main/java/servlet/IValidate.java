@@ -8,4 +8,6 @@ interface IValidate {
     User add(User user);
 
     List<User> getAll();
+
+    void deleteById(int id);
 }

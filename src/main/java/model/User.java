@@ -1,8 +1,9 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class User {
+public class User extends ArrayList<User> {
 
     private int id;
     private String name;

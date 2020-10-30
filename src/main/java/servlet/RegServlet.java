@@ -26,7 +26,6 @@ public class RegServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("DoGET " + " " + "REGSERVLET");
         resp.sendRedirect(req.getContextPath() + "/reg.jsp");
-
     }
 
     @Override
@@ -38,6 +37,4 @@ public class RegServlet extends HttpServlet {
         this.store.save(new User(0, name, email, password));
         resp.sendRedirect(req.getContextPath() + "/login.jsp");
     }
-
-
 }

@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import store.IPsqlStoreBase;
 import store.UserEntity;
 
 import javax.servlet.RequestDispatcher;
@@ -11,24 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class RegServlet extends HttpServlet {
+    private final IPsqlStoreBase store;
 
+    public RegServlet(IPsqlStoreBase store) {
+        this.store = store;
+    }
+
+    public RegServlet() {
+        this.store = new UserEntity();
+    }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("DoGET " + " " + "REGSERVLET");
         resp.sendRedirect(req.getContextPath() + "/reg.jsp");
 
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         System.out.println("DoPost " + " " + "REGSERVLET");
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        UserEntity store = new UserEntity();
-        store.save(new User(0, name, email, password));
-
+        this.store.save(new User(0, name, email, password));
         resp.sendRedirect(req.getContextPath() + "/login.jsp");
     }
 

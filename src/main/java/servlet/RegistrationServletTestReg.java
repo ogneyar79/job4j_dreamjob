@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(ValidateService.class)
-public class UserServletTest2 {
+public class RegistrationServletTestReg {
 
     @Test
     public void whenAddUserThenStoreIt() throws ServletException, IOException {

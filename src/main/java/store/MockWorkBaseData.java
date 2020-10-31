@@ -10,7 +10,7 @@ import java.util.Map;
 public class MockWorkBaseData implements IPsqlStoreBase<User> {
 
     private final Map<Integer, User> store = new HashMap();
-    private int ids = 0;
+    private int ids = 1;
 
     private User add(User user) {
         user.setId(this.ids++);
@@ -26,12 +26,11 @@ public class MockWorkBaseData implements IPsqlStoreBase<User> {
 
     @Override
     public void save(User user) {
-        if (user == null || user.getId() == 0) {
+        if (user.getId() == 0) {
             add(user);
         } else {
             this.store.put(user.getId(), user);
         }
-
     }
 
     @Override

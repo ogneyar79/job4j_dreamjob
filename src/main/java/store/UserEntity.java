@@ -52,7 +52,7 @@ public class UserEntity implements IPsqlStoreBase<User> {
 
     @Override
     public void save(User user) {
-        if (user == null || user.getId() == 0) {
+        if (user.getId() == 0) {
             create(user);
         } else {
             update(user);

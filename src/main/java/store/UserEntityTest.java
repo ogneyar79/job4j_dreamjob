@@ -4,11 +4,9 @@ import model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import servlet.CandidateServlet;
+
 import servlet.RegServlet;
 
 import javax.servlet.ServletException;
@@ -18,46 +16,50 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 
-
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(UserEntity.class)
+@PrepareForTest(MockWorkBaseData.class)
 public class UserEntityTest {
 
-    private final UserEntity store = new UserEntity();
-    private final IPsqlStoreBase base = new MockWorkBaseData();
+    private IPsqlStoreBase base;
     private final HttpServletRequest req = mock(HttpServletRequest.class);
     private final HttpServletResponse res = mock(HttpServletResponse.class);
-    private final HttpSession session = mock(HttpSession.class);
     RegServlet regServlet;
+
     @Before
     public void install() {
-        PowerMockito.mockStatic(MockWorkBaseData.class);
-        when(store.findAllEntity()).thenReturn(base.findAllEntity());
-        regServlet= new RegServlet();
-        CandidateServlet candidateServlet = new CandidateServlet();
+        mockStatic(MockWorkBaseData.class);
+        base = new MockWorkBaseData();
+        regServlet = new RegServlet(base);
     }
+
     @Test
-    public void regServlet() throws ServletException, IOException {
-    //    RegServlet regServlet = new RegServlet();
-        CandidateServlet candidateServlet = new CandidateServlet();
+    public void regServletAddNewUserAndFindItById() throws ServletException, IOException {
         String name = "Irina";
         String email = "Email";
         String password = "Password";
         when(req.getParameter("name")).thenReturn(name);
         when(req.getParameter("email")).thenReturn(email);
         when(req.getParameter("password")).thenReturn(password);
-     //   regServlet.;
-        new RegServlet().service(req, res);
-        candidateServlet.doServlet;
+        regServlet.doPost(req, res);
+        User expected = new User(1, name, email, password);
+        User modelReal = (User) base.findById(1);
+        assertThat(expected, is(modelReal));
     }
-
-
     @Test
-    public void save() {
+    public void redactingUser() throws IOException {
+        String name = "Zlata";
+        String email = "Email@";
+        String password = "Password";
+        when(req.getParameter("name")).thenReturn(name);
+        when(req.getParameter("email")).thenReturn(email);
+        when(req.getParameter("password")).thenReturn(password);
+        regServlet.doPost(req, res);
     }
 
     @Test

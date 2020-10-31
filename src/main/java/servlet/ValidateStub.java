@@ -28,4 +28,10 @@ public class ValidateStub implements IValidate {
     public List<User> getAll() {
         return new ArrayList<User>(this.store.values());
     }
+
+    @Override
+    public void deleteById(int id) {
+        ArrayList<User> users = this.store.remove(id);
+
+    }
 }

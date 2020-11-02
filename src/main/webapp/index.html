@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="description" content="job4j Ждем Вас!"/>
+</head>
+<body>
+<div class="container-fluid">
+    <h1>My First Bootstrap Page</h1>
+    <p>This is some text.</p>
+
+    <form action="/index" method="post">
+        <div class="form-group">
+            <label for="name">NAME: </label>
+            <input type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="surname">SURNAME:</label>
+            <input type="text" class="form-control" id="surname">
+        </div>
+        <div class="radio">
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+            <div>
+                <br/> <label for="Description">DESCRIPTION:</label><br/>
+                <br/><textarea name="description" rows="4" cols="50">
+</textarea> <br/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <table style="border: 1px solid #000000" border="1" cellpadding="1" cellspacing="0">
+        <tr>
+            <th>LOGIN</th>
+            <th>PASSWORD</th>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -18,7 +18,6 @@ notifications:
       -maksimus.sl@mail.ru
     on_success: never # default: change
     on_failure: always # defa,ult: always
+  d9239f7f-e9bf-43da-aa7c-88655cafdec0
 
-  env:
-      global:
-        - CODECOV_TOKEN="d9239f7f-e9bf-43da-aa7c-88655cafdec0"
+

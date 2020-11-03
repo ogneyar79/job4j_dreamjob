@@ -1,4 +1,4 @@
-package store;
+package storesql;
 
 import model.User;
 import org.junit.Before;
@@ -8,6 +8,8 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import servlet.RegServlet;
+import store.IPsqlStoreBase;
+import store.MockWorkBaseData;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -17,7 +17,10 @@
     recipients:
       -maksimus.s@mail.ru
     on_success: never # default: change
-    on_failure: always # defa,ult: always
+    on_failure: always # default: always
+
+
+    d9239f7f-e9bf-43da-aa7c-88655cafdec0
 
 
 

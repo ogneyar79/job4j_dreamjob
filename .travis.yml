@@ -12,15 +12,15 @@
     - bash <(curl -s https://codecov.io/bash)
 
   # Отправлять уведомление на почту maksimus.s@mail.ru(Изменить на свою) если сборка упала
- notifications:
- email:
+  notifications:
+  email:
      recipients:
        -maksimus.s@mail.ru
      on_success: never # default: change
      on_failure: always # deaf,ult: always
 
- env:
-  global:
+  env:
+   global:
      - CODECOV_TOKEN="d9239f7f-e9bf-43da-aa7c-88655cafdec0"
 
 

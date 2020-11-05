@@ -19,7 +19,5 @@
     on_success: never # default: change
     on_failure: always # defa,ult: always
 
- env:
-  global:
-    - CODECOV_TOKEN="d9239f7f-e9bf-43da-aa7c-88655cafdec0"
+
 

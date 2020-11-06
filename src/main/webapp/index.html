@@ -10,15 +10,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         function validate() {
-            var elementName = document.getElementById("name").val
-            var surname = document.getElementById("surname").val
+            //   var elementName = document.getElementById("name").val
+            //     var surname = document.getElementById("surname").val
             var name = $('#name').val();
+            var surname = $('#surname').val();
             if (name.length === 0) {
-                alert('You need to fill ' + alert($('#name').val()))
+                alert('You need to fill  name ')
                 return false;
             }
             if (surname.length === 0) {
-                alert('You need to fill ' + alert($('#surname').val()))
+                alert('You need to fill surname')
                 return false;
             }
             return true;

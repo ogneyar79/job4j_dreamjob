@@ -8,6 +8,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            var elementName = document.getElementById("name").val
+            var surname = document.getElementById("surname").val
+            var name = $('#name').val();
+            if (name.length === 0) {
+                alert('You need to fill ' + alert($('#name').val()))
+                return false;
+            }
+            if (surname.length === 0) {
+                alert('You need to fill ' + alert($('#surname').val()))
+                return false;
+            }
+            return true;
+        }
+    </script>
     <meta name="description" content="job4j Ждем Вас!"/>
 </head>
 <body>
@@ -31,13 +47,13 @@
             <label for="female">Female</label><br>
             <input type="radio" id="other" name="gender" value="other">
             <label for="other">Other</label>
-            <div>
-                <br/> <label for="Description">DESCRIPTION:</label><br/>
-                <br/><textarea name="description" rows="4" cols="50">
-</textarea> <br/>
-            </div>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <div>
+            <br/> <label for="Description">DESCRIPTION:</label><br/>
+            <br/><textarea name="description" rows="4" cols="50">
+</textarea> <br/>
+        </div>
+        <button onclick="validate()" type="submit" class="btn btn-default">Submit</button>
     </form>
     <table style="border: 1px solid #000000" border="1" cellpadding="1" cellspacing="0">
         <tr>

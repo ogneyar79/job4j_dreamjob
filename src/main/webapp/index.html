@@ -1,5 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+    button.knopka {
+        color: #fff;
+        background: #FFA500;
+        padding: 5px;
+        border-radius: 5px;
+        border: 2px solid #FF8247;
+    }
+
+    button.knopka:hover {
+        background: #FF6347;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <title>Bootstrap Example</title>
@@ -10,8 +23,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         function validate() {
-            //   var elementName = document.getElementById("name").val
-            //     var surname = document.getElementById("surname").val
             var name = $('#name').val();
             var surname = $('#surname').val();
             if (name.length === 0) {
@@ -23,6 +34,15 @@
                 return false;
             }
             return true;
+        }
+
+        function addRow() {
+            //получаем значение поля usr
+            var name = $('#name').val();
+            var surname = $('#surname').val();
+            //получаем ссылку на последний элемент в таблице.
+            //и после него добавляем html
+            $('#table tr:last').after('<tr><td>' + name + '</td>' + '<td>' + surname + '</td></tr>');
         }
     </script>
     <meta name="description" content="job4j Ждем Вас!"/>
@@ -56,10 +76,11 @@
         </div>
         <button onclick="validate()" type="submit" class="btn btn-default">Submit</button>
     </form>
-    <table style="border: 1px solid #000000" border="1" cellpadding="1" cellspacing="0">
+    <table id="table" style="border: 1px solid #000000" border="1" cellpadding="1" cellspacing="0">
         <tr>
             <th>LOGIN</th>
             <th>PASSWORD</th>
+            <button class="knopka" onclick="addRow()">FILL TABLE</button>
         </tr>
     </table>
 </div>

@@ -24,12 +24,45 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-    <title>Работа мечты</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Работа мечты</title>
+    <script>
+        function validate() {
+            let name = $('#name').val();
+            let password = $('#password').val();
+            let email = $('#email').val();
+
+            let letters = /^[A-Za-z]+$/;
+            if (!name.match(letters)) {
+                alert('Username must have alphabetcharactersonly');
+               // name.focus();
+                return false
+            }
+            if (name.length === 0) {
+                alert('You need to fill  name ')
+                return false;
+            }
+
+            let mailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+            if (!email.match(mailFormat)) {
+                alert("You have entered an invalid email address!");
+            //    email.focus();
+                return false;
+            }
+            let my = 7, mx = 12
+            if (password.length === 0 || password.length >= my || password.length < mx) {
+                alert("Password should not be empty / length be between " + mx + " to " + my);
+            //    password.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
 </head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -49,12 +82,11 @@
                         <label>Пароль</label>
                         <input type="text" class="form-control" name="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button onclick="validate()" type="submit" class="btn btn-default">ЗАРЕГИСТРИРОВАТЬ</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 </body>
 </html>

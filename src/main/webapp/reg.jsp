@@ -30,31 +30,21 @@
     <title>Работа мечты</title>
     <script>
         function validate() {
-            let name = $('#name').val();
-            let password = $('#password').val();
-            let email = $('#email').val();
+            alert('function validate')
+            let name = $('#names').val();
+            let password = $('#pass').val();
 
             let letters = /^[A-Za-z]+$/;
             if (!name.match(letters)) {
+                console.log(name)
                 alert('Username must have alphabetcharactersonly');
-               // name.focus();
+                // name.focus();
                 return false
             }
-            if (name.length === 0) {
-                alert('You need to fill  name ')
-                return false;
-            }
-
-            let mailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
-            if (!email.match(mailFormat)) {
-                alert("You have entered an invalid email address!");
-            //    email.focus();
-                return false;
-            }
-            let my = 7, mx = 12
+            alert("Password" + password)
             if (password.length === 0 || password.length >= my || password.length < mx) {
                 alert("Password should not be empty / length be between " + mx + " to " + my);
-            //    password.focus();
+                //    password.focus();
                 return false;
             }
             return true;
@@ -72,15 +62,15 @@
                 <form action="<%=request.getContextPath()%>/reg.do" method="post">
                     <div class="form-group">
                         <label>ИМЯ ПОЛЬЗОВАТЕЛЯ</label>
-                        <input type="text" class="form-control" name="name">
+                        <input type="text" class="form-control" name="name" id="names">
                     </div>
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="email" class="form-control" name="email" id="emails">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="password" class="form-control" name="password" id="pass">
                     </div>
                     <button onclick="validate()" type="submit" class="btn btn-default">ЗАРЕГИСТРИРОВАТЬ</button>
                 </form>

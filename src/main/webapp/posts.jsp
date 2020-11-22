@@ -6,9 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="model.Post" %>
-<%@ page import="java.util.Collection" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!doctype html>
 <html lang="en">
@@ -54,7 +53,8 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> | Выйти</a>
             </li>
 
-            <c:out value="${user.name}"/>
+            <c:out value="User Name"/>
+            <c:out value="${user}"/>
         </ul>
 
         <div class="card" style="width: 100%">

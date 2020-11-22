@@ -1,8 +1,6 @@
 package store;
 
 import model.Candidate;
-import model.Photo;
-import model.Post;
 
 public class PsqlMain {
 
@@ -14,7 +12,7 @@ public class PsqlMain {
 //        }
 
         store = PsqlStore.instOf();
-        store.save(new Candidate(0, "Maksimus", 0));
+        store.save(new Candidate(0, "Maksimus", 0, 0));
         for (Candidate candidate : store.findAllCandidates()) {
             System.out.println(candidate.getId() + " " + candidate.getName() + " " + candidate.getPhotoId());
         }

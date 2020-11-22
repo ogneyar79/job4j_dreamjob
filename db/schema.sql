@@ -32,5 +32,10 @@ create table users
         constraint user_password_key
             unique
 );
-
+create table city (
+id SERIAL PRIMARY KEY,
+name TEXT not null
+);
+ALTER TABLE candidate ADD COLUMN cityId INTEGER REFERENCES city(id);
+INSERT into city (name) values('Рим'),('Москва'),('Тула'),('Париж'),('Бангкок'),('Юрмала'),('Вильнус'),('Берлин'),('Барселона'),('Мадрид'),('Афины');
 

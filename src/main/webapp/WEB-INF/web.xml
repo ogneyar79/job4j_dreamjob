@@ -6,7 +6,6 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
     version="4.0">
     <display-name>Archetype Created Web Application</display-name>
-
     <servlet>
         <servlet-name>IndexServlet</servlet-name>
         <servlet-class>servlet.IndexServlet</servlet-class>
@@ -28,6 +27,23 @@
         <servlet-name>FormServlet</servlet-name>
         <servlet-class>servlet.FormServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GreetingServlet</servlet-name>
+        <servlet-class>servlets.GreetingServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CityServlet</servlet-name>
+        <servlet-class>servlet.CityServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CityServlet</servlet-name>
+        <url-pattern>/city</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GreetingServlet</servlet-name>
+        <url-pattern>/greet</url-pattern>
+    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>IndexServlet</servlet-name>

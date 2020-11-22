@@ -1,19 +1,14 @@
 package servlet;
 
 import model.Candidate;
-import model.Photo;
 import store.CandidateEntity;
 import store.IPsqlStoreBase;
-import store.IStore;
-import store.PsqlStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collection;
 
 public class CandidateServlet extends HttpServlet {
 
@@ -24,7 +19,7 @@ public class CandidateServlet extends HttpServlet {
     }
 
     public CandidateServlet() {
-        candidateEntity  = new CandidateEntity();
+        candidateEntity = new CandidateEntity();
     }
 
     @Override
@@ -41,7 +36,7 @@ public class CandidateServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         System.out.println(" DoPost  CandidateServlet");
         candidateEntity.save(new Candidate(Integer.valueOf(req.getParameter("id")),
-                req.getParameter("name"), Integer.valueOf(req.getParameter("photoId"))));
+                req.getParameter("name"), Integer.valueOf(req.getParameter("photoId")), Integer.valueOf(req.getParameter("cityId"))));
 
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }

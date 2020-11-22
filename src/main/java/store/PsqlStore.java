@@ -104,7 +104,7 @@ public class PsqlStore implements IStore {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("photoId")));
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("photoId"), it.getInt("cityId")));
                 }
             }
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public class PsqlStore implements IStore {
 
     public Candidate findCandidate(int id) {
         return this.findAllCandidates().stream().filter(c -> c.getId() == (id)).
-                findAny().orElse(new Candidate(id, "Zero", 0));
+                findAny().orElse(new Candidate(id, "Zero", 0, 0));
     }
 
     @Override
@@ -171,7 +171,7 @@ public class PsqlStore implements IStore {
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
-                    candidate = new Candidate(id.getInt(1), candidate.getName(), candidate.getPhotoId());
+                    candidate = new Candidate(id.getInt(1), candidate.getName(), candidate.getPhotoId(), 0);
                 }
             }
         } catch (Exception e) {
@@ -292,7 +292,7 @@ public class PsqlStore implements IStore {
         int id = 10;
         String name = " Experiment";
         int photoId = 33;
-        Candidate candidate = new Candidate(id, name, photoId);
+        Candidate candidate = new Candidate(id, name, photoId, 0);
         store.save(candidate);
     }
 }

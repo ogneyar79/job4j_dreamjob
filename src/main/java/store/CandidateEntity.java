@@ -24,7 +24,7 @@ public class CandidateEntity implements IPsqlStoreBase<Candidate> {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("photoId")));
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("photoId"), it.getInt("cityId")));
                 }
             }
         } catch (Exception e) {
@@ -44,11 +44,12 @@ public class CandidateEntity implements IPsqlStoreBase<Candidate> {
 
     private void update(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(" UPDATE candidate set name = ?, photoId = ? where id = ? ")
+             PreparedStatement ps = cn.prepareStatement(" UPDATE candidate set name = ?, photoId = ?,cityId = ? where id = ? ")
         ) {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getPhotoId());
-            ps.setInt(3, candidate.getId());
+            ps.setInt(3, candidate.getCityId());
+            ps.setInt(4, candidate.getId());
             ps.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -63,7 +64,7 @@ public class CandidateEntity implements IPsqlStoreBase<Candidate> {
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
-                    candidate = new Candidate(id.getInt(1), candidate.getName(), candidate.getPhotoId());
+                    candidate = new Candidate(id.getInt(1), candidate.getName(), candidate.getPhotoId(), candidate.getCityId());
                 }
             }
         } catch (Exception e) {
@@ -75,6 +76,6 @@ public class CandidateEntity implements IPsqlStoreBase<Candidate> {
     @Override
     public Candidate findById(int id) {
         return this.findAllEntity().stream().filter(c -> c.getId() == (id)).
-                findAny().orElse(new Candidate(id, "Zero", 0));
+                findAny().orElse(new Candidate(id, "Zero", 0, 0));
     }
 }

@@ -49,16 +49,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:out value="${user.name}"/>
+                    <c:out value="User Name"/>
+                    <c:out value="${name}"/>
                     <c:forEach var="candidate" items="${candidates}">
                         <tr>
                             <td>
                                 <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}"/>'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
+                                    <c:out value="Candidate Name"/>
                                     <c:out value="${candidate.name}"/>
-                                    <c:out value="${candidate.photoId}"/>
+
+                                    <c:out value="Candidate Id"/>
                                     <c:out value="${candidate.id}"/>
+
                             <td>
                                 <img src="<c:url value='/download?photo=${candidate.photoId}&name=${candidate.name}'/>"
                                      width="200px"

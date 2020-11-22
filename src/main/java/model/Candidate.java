@@ -8,11 +8,12 @@ public class Candidate {
     private final String name;
 
     private final int photoId;
-
-    public Candidate(int id, String name, int photoId) {
+     private final int cityId;
+    public Candidate(int id, String name, int photoId, int cityId) {
         this.id = id;
         this.name = name;
         this.photoId = photoId;
+        this.cityId = cityId;
     }
 
 
@@ -26,6 +27,10 @@ public class Candidate {
 
     public int getPhotoId() {
         return photoId;
+    }
+
+    public int getCityId() {
+        return cityId;
     }
 
     @Override

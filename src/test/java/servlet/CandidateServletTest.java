@@ -8,7 +8,6 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import store.CandidateImitation;
 import store.IPsqlStoreBase;
-import store.MockWorkBaseData;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,7 +40,7 @@ public class CandidateServletTest {
 
     @Test
     public void doGetAllCandidates() throws ServletException, IOException {
-        this.base.save(new Candidate(1, "Zlata", 365));
+        this.base.save(new Candidate(1, "Zlata", 365, 0));
         doNothing().when(req).setAttribute(String.valueOf((String.class)), this.base.findAllEntity());
         RequestDispatcher requestDispatcher = new RequestDispatcher() {
             @Override
@@ -69,11 +68,11 @@ public class CandidateServletTest {
         when(req.getParameter("name")).thenReturn(name);
         when(req.getParameter("photoId")).thenReturn(photoId);
         servlet.doPost(req, res);
-        Candidate expected = new Candidate(1, name, Integer.valueOf(photoId));
+        Candidate expected = new Candidate(1, name, Integer.valueOf(photoId), 0);
         Candidate modelReal = (Candidate) this.base.findById(1);
         assertThat(expected, is(modelReal));
-        this.base.save(new Candidate(1, "Zlata", Integer.valueOf(photoId)));
-        Candidate expectedM = new Candidate(1, "Zlata", Integer.valueOf(photoId));
+        this.base.save(new Candidate(1, "Zlata", Integer.valueOf(photoId), 0));
+        Candidate expectedM = new Candidate(1, "Zlata", Integer.valueOf(photoId), 0);
         Candidate modelRealM = (Candidate) this.base.findById(1);
         assertThat(expectedM, is(modelRealM));
     }

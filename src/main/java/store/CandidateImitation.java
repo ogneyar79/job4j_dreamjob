@@ -13,7 +13,7 @@ public class CandidateImitation implements IPsqlStoreBase<Candidate> {
     private int ids = 1;
 
     private Candidate add(Candidate candidate) {
-        Candidate candidateR = new Candidate(ids, candidate.getName(), candidate.getPhotoId());
+        Candidate candidateR = new Candidate(ids, candidate.getName(), candidate.getPhotoId(), candidate.getCityId());
         ids++;
         this.store.put(candidateR.getId(), candidateR);
         return candidate;
@@ -35,6 +35,6 @@ public class CandidateImitation implements IPsqlStoreBase<Candidate> {
 
     @Override
     public Candidate findById(int id) {
-        return store.get(id) != null ? store.get(id) : new Candidate(0, "Zero", 000);
+        return store.get(id) != null ? store.get(id) : new Candidate(0, "Zero", 000, 000);
     }
 }

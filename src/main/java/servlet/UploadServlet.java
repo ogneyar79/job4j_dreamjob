@@ -8,7 +8,6 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import store.*;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +86,7 @@ public class UploadServlet extends HttpServlet {
                         System.out.println("We save photo");
                         Photo photo = photoBase.findPhotoByName2(file.getName()); // we get photo that was saved and add to our Candidate
                         System.out.println("We try to get Photo that's saved" + " " + photo + " " + "Id " + photo.getId() + " " + "name " + photo.getName());
-                        candidateTable.save(new Candidate(temp.getId(), temp.getName(), photo.getId()));
+                        candidateTable.save(new Candidate(temp.getId(), temp.getName(), photo.getId(), temp.getCityId()));
                         Candidate show = (Candidate) candidateTable.findById(temp.getId());
                         System.out.println(" Work with candidate" + "Name" + show.getName() + "Id" + show.getId() + "PhotoId" + show.getPhotoId());
                         Photo photo1 = photoBase.findById(show.getPhotoId());

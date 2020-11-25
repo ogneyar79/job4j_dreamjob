@@ -23,19 +23,17 @@ public class CityServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-              System.out.println("DoPost  CityServlet");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        resp.setHeader("Access-Control-Allow-Origin", "*");
+        System.out.println("DoPost  CityServlet");
         ArrayList<City> cities = (ArrayList<City>) new CityEntity().findAllEntity();
         List<String> citiesName = this.getCitesName(cities);
 
-        String js = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().
-                create().toJson(citiesName);
-
-        resp.setContentType("text/plain");
-        resp.setCharacterEncoding("UTF-8");
+        String js = new Gson().toJson(citiesName);
 
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-     //   System.out.println(js);
+        System.out.println(" 38 CityS data" + "" + js);
         writer.println(js);
         writer.flush();
     }

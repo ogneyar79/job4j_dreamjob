@@ -28,41 +28,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
     </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="jquery.js"></script>
-    <script type="text/javascript" src="jquery.autocomplete.js"></script>
-
-
     <title>Работа мечты</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
+        alert("44 afterSuccess")
         $.ajax({
+            type: 'Post',
             url: 'http://localhost:8080/job4j_dreamjob_war_exploded/city',
             dataType: 'json',
-            type: "POST"
         }).done(function (data) {
-            console.log(data)
-            let ar = [];
-            let jsFrom = JSON.parse(data);
-            jsFrom.forEach(el => ar.push(el));
-            $("#autocomplete").autocomplete(
-                ar,
-                {
-                    delay: 0,
-                    minChars: 1,
-                    matchSubset: 1,
-                    autoFill: true,
-                    maxItemsToShow: 10
+            let d = data
+            alert("50 afterSuccess + d" + d)
+            $(function () {
+                console.log(data)
+                alert("53 afterSuccess + data" + data)
+                let jsFrom = JSON.parse(data);
+                alert("55 let jsFrom = JSON.parse(data)" + jsFrom )
+                let ar = Array.from(jsFrom);
+                $("#autocomplete").autocomplete({
+                    source: ar,
+                    minLength: 2
                 });
-
+            })
         }).fail(function (err) {
-            alert(err);
-        });
+            alert("Fail 61")
+        })
     })
+
+
 </script>
 <%
     String id = request.getParameter("id");
@@ -85,7 +88,8 @@
                 <% } %>
             </div>
             <div class="card-body">
-                <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>&photoId=<%=candidate.getPhotoId()%>&cityId=<%=candidate.getCityId()%>"
+                <form autocomplete="off"
+                      action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>&photoId=<%=candidate.getPhotoId()%>&cityId=<%=candidate.getCityId()%>"
                       method="post">
                     <div class="form-group">
                         <label>Имя</label>
@@ -99,9 +103,9 @@
                 <form>
                     <div class="form-group" id="auto">
                         <label for="exampleInputEmail1">SELECT CITY</label>
-                        <input type="text" name="city" id="autocomplete" autocomplete="off"/>
+                        <input id="autocomplete" type="text" class="form-control" aria-label="Sizing example input"
+                               aria-describedby="inputGroup-sizing-default" autocomplete="off"/>
                     </div>
-                    <button type="button">Submit</button>
                 </form>
             </div>
 

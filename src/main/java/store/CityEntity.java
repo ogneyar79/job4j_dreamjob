@@ -88,4 +88,24 @@ public class CityEntity implements IPsqlStoreBase<City> {
         }
         return city;
     }
+
+    public City getCityId(String cityName) {
+        City city = new City(0, "Zero");
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM city where name =?")
+        ) {
+            ps.setString(1, String.valueOf(cityName));
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    city = new City(it.getInt(1), it.getString(2));
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return city;
+
+    }
+
+
 }

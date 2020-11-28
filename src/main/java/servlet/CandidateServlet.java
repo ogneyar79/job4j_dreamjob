@@ -2,6 +2,7 @@ package servlet;
 
 import model.Candidate;
 import store.CandidateEntity;
+import store.CityEntity;
 import store.IPsqlStoreBase;
 
 import javax.servlet.ServletException;
@@ -24,7 +25,6 @@ public class CandidateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // IStore store = PsqlStore.instOf();
         req.setAttribute("candidates", candidateEntity.findAllEntity());
         System.out.println(" DoGet  CandidateServlet");
 
@@ -35,9 +35,11 @@ public class CandidateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         System.out.println(" DoPost  CandidateServlet");
+        String nameCity = req.getParameter("city");
+        int cityId = new CityEntity().getCityId(nameCity).getId();
         candidateEntity.save(new Candidate(Integer.valueOf(req.getParameter("id")),
-                req.getParameter("name"), Integer.valueOf(req.getParameter("photoId")), Integer.valueOf(req.getParameter("cityId"))));
-
+                req.getParameter("name"), Integer.valueOf(req.getParameter("photoId")), cityId));
+        System.out.println("City name is:" + nameCity + ", cityId:" + cityId);
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 }

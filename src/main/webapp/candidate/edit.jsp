@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: maksimsirotkin
-  Date: 02.08.2020
-  Time: 13:37
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="model.Candidate" %>
 <%@ page import="store.PsqlStore" %>
@@ -41,31 +34,27 @@
 <body>
 <script type="text/javascript">
     $(document).ready(function () {
-        alert("44 afterSuccess")
+        alert("37 afterSuccess")
         $.ajax({
-            type: 'Post',
+            type: 'Get',
             url: 'http://localhost:8080/job4j_dreamjob_war_exploded/city',
             dataType: 'json',
         }).done(function (data) {
+            console.log(data)
             let d = data
-            alert("50 afterSuccess + d" + d)
+            alert("Прибыли данные Строка 45: " + data);
             $(function () {
                 console.log(data)
-                alert("53 afterSuccess + data" + data)
-                let jsFrom = JSON.parse(data);
-                alert("55 let jsFrom = JSON.parse(data)" + jsFrom )
-                let ar = Array.from(jsFrom);
+                let ar = Array.from(data);
                 $("#autocomplete").autocomplete({
                     source: ar,
                     minLength: 2
                 });
             })
         }).fail(function (err) {
-            alert("Fail 61")
+            alert("Fail 55 " + err)
         })
     })
-
-
 </script>
 <%
     String id = request.getParameter("id");
@@ -95,17 +84,13 @@
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                </form>
-            </div>
-
-            <div class="container">
-                <form>
                     <div class="form-group" id="auto">
                         <label for="exampleInputEmail1">SELECT CITY</label>
-                        <input id="autocomplete" type="text" class="form-control" aria-label="Sizing example input"
+                        <input name="city" id="autocomplete" type="text" class="form-control"
+                               aria-label="Sizing example input"
                                aria-describedby="inputGroup-sizing-default" autocomplete="off"/>
                     </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
 

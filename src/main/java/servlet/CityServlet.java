@@ -1,15 +1,19 @@
 package servlet;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import model.Candidate;
 import model.City;
+import store.CandidateEntity;
 import store.CityEntity;
+import store.IPsqlStoreBase;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,25 +22,17 @@ public class CityServlet extends HttpServlet {
 
     public List<String> getCitesName(ArrayList<City> cities) {
         return cities.stream().map(City::getName).collect(Collectors.toList());
-
     }
-
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
-        System.out.println("DoPost  CityServlet");
+        System.out.println("DoGet  CityServlet");
         ArrayList<City> cities = (ArrayList<City>) new CityEntity().findAllEntity();
         List<String> citiesName = this.getCitesName(cities);
-
         String js = new Gson().toJson(citiesName);
-
-        PrintWriter writer = new PrintWriter(resp.getOutputStream());
-        System.out.println(" 38 CityS data" + "" + js);
+        PrintWriter writer = new PrintWriter(resp.getOutputStream(), true, StandardCharsets.UTF_8);
         writer.println(js);
         writer.flush();
     }
-
-
 }

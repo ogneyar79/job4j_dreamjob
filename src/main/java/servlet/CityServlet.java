@@ -1,13 +1,10 @@
 package servlet;
 
 import com.google.gson.Gson;
-import model.Candidate;
 import model.City;
-import store.CandidateEntity;
-import store.CityEntity;
-import store.IPsqlStoreBase;
 
-import javax.servlet.ServletException;
+import store.CityEntity;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +20,7 @@ public class CityServlet extends HttpServlet {
     public List<String> getCitesName(ArrayList<City> cities) {
         return cities.stream().map(City::getName).collect(Collectors.toList());
     }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.setContentType("application/json");

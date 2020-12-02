@@ -62,6 +62,7 @@
 
                                     <c:out value="Candidate Id"/>
                                     <c:out value="${candidate.id}"/>
+                                    <c:out value="${candidate.cityId}"/>
 
                             <td>
                                 <img src="<c:url value='/download?photo=${candidate.photoId}&name=${candidate.name}'/>"

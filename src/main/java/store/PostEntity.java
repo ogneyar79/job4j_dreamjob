@@ -29,7 +29,6 @@ public class PostEntity  implements IPsqlStoreBase<Post>{
             e.printStackTrace();
         }
         return posts;
-
     }
 
     @Override
@@ -56,6 +55,8 @@ public class PostEntity  implements IPsqlStoreBase<Post>{
         }
         return post;
     }
+
+
     private void update(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(" UPDATE post set name = ? where id = ? ")
